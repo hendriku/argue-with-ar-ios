@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Classification View Controller-->
+        <scene sceneID="S4H-6C-DUt">
+            <objects>
+                <viewController storyboardIdentifier="ClassificationVC" id="zDT-De-ciR" customClass="ClassificationViewController" customModule="argue_with_ar_ios" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="rZW-j1-gTt">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="08p-I9-Bja">
+                                <rect key="frame" x="67.5" y="80" width="240" height="240"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="240" id="5jh-Tq-lHt"/>
+                                    <constraint firstAttribute="width" constant="240" id="jWS-5d-o7h"/>
+                                </constraints>
+                            </imageView>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a label..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fTs-9y-hmg">
+                                <rect key="frame" x="67.5" y="370" width="240" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WJM-zg-UGt">
+                                <rect key="frame" x="67.5" y="475" width="34" height="30"/>
+                                <state key="normal" title="Save"/>
+                                <connections>
+                                    <action selector="saveTapped" destination="zDT-De-ciR" eventType="touchUpInside" id="S7l-W2-MqC"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QE2-jb-m15">
+                                <rect key="frame" x="259.5" y="475" width="48" height="30"/>
+                                <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="cancelTapped" destination="zDT-De-ciR" eventType="touchUpInside" id="1fG-nM-z4F"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter the physical width in m..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wut-b1-IUG">
+                                <rect key="frame" x="67.5" y="408" width="240" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="WJM-zg-UGt" firstAttribute="leading" secondItem="fTs-9y-hmg" secondAttribute="leading" id="3GW-3D-ULP"/>
+                            <constraint firstItem="wut-b1-IUG" firstAttribute="top" secondItem="fTs-9y-hmg" secondAttribute="bottom" constant="8" id="65t-lO-BTz"/>
+                            <constraint firstItem="fTs-9y-hmg" firstAttribute="leading" secondItem="08p-I9-Bja" secondAttribute="leading" id="HlA-vX-lYx"/>
+                            <constraint firstItem="wut-b1-IUG" firstAttribute="leading" secondItem="fTs-9y-hmg" secondAttribute="leading" id="bb2-G0-aao"/>
+                            <constraint firstItem="WJM-zg-UGt" firstAttribute="top" secondItem="wut-b1-IUG" secondAttribute="bottom" constant="37" id="cOw-ZQ-CMD"/>
+                            <constraint firstItem="08p-I9-Bja" firstAttribute="centerX" secondItem="7lX-fg-OLE" secondAttribute="centerX" id="hjD-tO-iBM"/>
+                            <constraint firstItem="QE2-jb-m15" firstAttribute="top" secondItem="wut-b1-IUG" secondAttribute="bottom" constant="37" id="oEg-xW-TkL"/>
+                            <constraint firstItem="fTs-9y-hmg" firstAttribute="trailing" secondItem="08p-I9-Bja" secondAttribute="trailing" id="pP1-ub-br9"/>
+                            <constraint firstItem="08p-I9-Bja" firstAttribute="top" secondItem="7lX-fg-OLE" secondAttribute="top" constant="60" id="sDu-8f-GUG"/>
+                            <constraint firstItem="wut-b1-IUG" firstAttribute="trailing" secondItem="fTs-9y-hmg" secondAttribute="trailing" id="v0A-Pl-xgQ"/>
+                            <constraint firstItem="fTs-9y-hmg" firstAttribute="top" secondItem="08p-I9-Bja" secondAttribute="bottom" constant="50" id="wxg-ch-WAT"/>
+                            <constraint firstItem="QE2-jb-m15" firstAttribute="trailing" secondItem="fTs-9y-hmg" secondAttribute="trailing" id="x48-Od-8AO"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="7lX-fg-OLE"/>
+                    </view>
+                    <connections>
+                        <outlet property="cancelButton" destination="QE2-jb-m15" id="64Q-jS-vmV"/>
+                        <outlet property="displayImage" destination="08p-I9-Bja" id="Ga5-UD-2tf"/>
+                        <outlet property="nameTextField" destination="fTs-9y-hmg" id="Pmn-5I-hNB"/>
+                        <outlet property="saveButton" destination="WJM-zg-UGt" id="4cd-cI-LqQ"/>
+                        <outlet property="widthTextField" destination="wut-b1-IUG" id="PNf-lw-Avi"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Bvr-lS-QcX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="352.80000000000001" y="67.916041979010501"/>
+        </scene>
+    </scenes>
+</document>
