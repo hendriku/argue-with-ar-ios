@@ -20,6 +20,8 @@ class MainViewController: UIViewController {
         present(imagePicker, animated: true)
     }
     
+    var timestamp: DispatchTime?
+    
     @IBAction func didTapRecord() {
         classify(image: sceneView.snapshot())
     }
@@ -68,23 +70,39 @@ class MainViewController: UIViewController {
     }
 }
 
-// MARK: ARSCNView Delegate
+// MARK: AR Delegate
 
 extension MainViewController: ARSCNViewDelegate, ARSessionDelegate {
-    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-        guard let imageAnchor = anchor as? ARImageAnchor else { return }
-        
-        DispatchQueue.main.async {
-            let imageName = imageAnchor.referenceImage.name ?? ""
-            let alert = UIAlertController(title: "Detected", message: "Image: \(imageName)", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-            if let existingAlert = self.presentedViewController {
-                existingAlert.dismiss(animated: false)
+    func session(_ session: ARSession, cameraDidChangeTrackingState camera: ARCamera) {
+        switch camera.trackingState {
+        case .normal:
+            print("STATE: \(camera.trackingState)")
+            if timestamp == nil {
+                timestamp = DispatchTime.now()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 60 * 2) {
+                    print("XXXXXXX: ")
+                    self.doSafeExit()
+                }
             }
-            self.sceneView.session.remove(anchor: anchor)
-            self.present(alert, animated: true)
-            print("Detected \(imageName)!!!")
+        default:
+            print("STATE: \(camera.trackingState)")
         }
+    }
+    
+    func doSafeExit() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            exit(0)
+        }
+    }
+    
+    func session(_ session: ARSession, didFailWithError error: Error) {
+        print("SESSION-ERROR: \(error)")
+    }
+    
+    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+        guard anchor is ARImageAnchor else { return }
+        print("XXXXXXX: \((DispatchTime.now().uptimeNanoseconds - timestamp!.uptimeNanoseconds) / 1000000 )")
+        doSafeExit()
     }
     
     func sessionShouldAttemptRelocalization(_ session: ARSession) -> Bool {
