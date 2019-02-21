@@ -20,6 +20,8 @@ class MainViewController: UIViewController {
         present(imagePicker, animated: true)
     }
     
+    var timestamp: DispatchTime?
+    
     @IBAction func didTapRecord() {
         classify(image: sceneView.snapshot())
     }
@@ -68,22 +70,47 @@ class MainViewController: UIViewController {
     }
 }
 
-// MARK: ARSCNView Delegate
+// MARK: AR Delegate
 
 extension MainViewController: ARSCNViewDelegate, ARSessionDelegate {
+    func session(_ session: ARSession, cameraDidChangeTrackingState camera: ARCamera) {
+        switch camera.trackingState {
+        case .limited(.excessiveMotion), .limited(.insufficientFeatures):
+            print("WARNING: \(camera.trackingState)")
+            timestamp = DispatchTime.now()
+            // resetTracking()
+        case .normal:
+            if let timestamp = timestamp {
+                let deltaTime = (DispatchTime.now().uptimeNanoseconds - timestamp.uptimeNanoseconds) / 1000000
+                print("Relo calization from error took \(deltaTime)")
+            }
+        default:
+            break;
+            // print("Not interesting \(camera.trackingState)")
+        }
+    }
+    
+    func session(_ session: ARSession, didFailWithError error: Error) {
+        print("SESSION-ERROR: \(error)")
+    }
+    
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         guard let imageAnchor = anchor as? ARImageAnchor else { return }
         
         DispatchQueue.main.async {
-            let imageName = imageAnchor.referenceImage.name ?? ""
-            let alert = UIAlertController(title: "Detected", message: "Image: \(imageName)", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-            if let existingAlert = self.presentedViewController {
-                existingAlert.dismiss(animated: false)
-            }
-            self.sceneView.session.remove(anchor: anchor)
-            self.present(alert, animated: true)
-            print("Detected \(imageName)!!!")
+            // if let timestamp = self.timestamp {
+                // let deltaTime = (DispatchTime.now().uptimeNanoseconds - timestamp.uptimeNanoseconds) / 1000000
+                // fNSLog("Tracked! DeltaTime: \(deltaTime)")
+                let imageName = imageAnchor.referenceImage.name ?? ""
+                let alert = UIAlertController(title: "Detected", message: "Image: \(imageName)", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                if let existingAlert = self.presentedViewController {
+                    existingAlert.dismiss(animated: false)
+                }
+                self.sceneView.session.remove(anchor: anchor)
+                self.present(alert, animated: true)
+                print("Detected \(imageName)!!!")
+            // }
         }
     }
     
