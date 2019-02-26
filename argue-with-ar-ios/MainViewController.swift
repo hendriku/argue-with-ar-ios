@@ -1,6 +1,7 @@
 import ARKit
 import SceneKit
 import UIKit
+import AVFoundation
 
 class MainViewController: UIViewController {
     
@@ -39,7 +40,7 @@ class MainViewController: UIViewController {
 
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
-
+        
 		UIApplication.shared.isIdleTimerDisabled = true
         resetTracking()
         print("Started new session!")
@@ -47,12 +48,35 @@ class MainViewController: UIViewController {
 	
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-
         sceneView.session.pause()
         print("Pausing session...")
     }
     
     // MARK: Helper Methods
+    
+    // Source: Stackoverflow https://stackoverflow.com/questions/27207278/how-to-turn-flashlight-on-and-off-in-swift
+    func toggleFlash() {
+        guard let device = AVCaptureDevice.default(for: AVMediaType.video) else { return }
+        guard device.hasTorch else { return }
+        
+        do {
+            try device.lockForConfiguration()
+            
+            if (device.torchMode == AVCaptureDevice.TorchMode.on) {
+                device.torchMode = AVCaptureDevice.TorchMode.off
+            } else {
+                do {
+                    try device.setTorchModeOn(level: 1.0)
+                } catch {
+                    print(error)
+                }
+            }
+            
+            device.unlockForConfiguration()
+        } catch {
+            print(error)
+        }
+    }
     
     func resetTracking() {
         let configuration = ARWorldTrackingConfiguration()
@@ -75,11 +99,15 @@ class MainViewController: UIViewController {
 extension MainViewController: ARSCNViewDelegate, ARSessionDelegate {
     func session(_ session: ARSession, cameraDidChangeTrackingState camera: ARCamera) {
         switch camera.trackingState {
+        case .limited(ARCamera.TrackingState.Reason.initializing):
+//            Uncomment for additional light simulation
+//            toggleFlash()
+            break
         case .normal:
             print("STATE: \(camera.trackingState)")
             if timestamp == nil {
                 timestamp = DispatchTime.now()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 60 * 2) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 15) {
                     print("XXXXXXX: ")
                     self.doSafeExit()
                 }

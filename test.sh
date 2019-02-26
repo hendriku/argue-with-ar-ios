@@ -10,6 +10,10 @@ do
     ((counter++))
 done
 
+# Converting greppy output to CSV format
+tr -d '\n\r' < test.log > temp.log && mv temp.log test.log
+sed -e "s/XXXXXXX: /,/g" -e "s/,//" test.log > temp.log && mv temp.log test.log
+
 while true; do
-    say "ALARM"
+    say "ICH BIN FERTIG. GIB MIR WAS NEUES ZU TUN"
 done
