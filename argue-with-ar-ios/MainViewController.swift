@@ -118,9 +118,7 @@ extension MainViewController: ARSCNViewDelegate, ARSessionDelegate {
     }
     
     func doSafeExit() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            exit(0)
-        }
+        exit(0)
     }
     
     func session(_ session: ARSession, didFailWithError error: Error) {
