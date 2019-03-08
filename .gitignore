@@ -1,5 +1,6 @@
 .DS_Store
 xcuserdata/
 *.xcworkspace
+Release-iphoneos/
+*.log
 build/
-test.log
