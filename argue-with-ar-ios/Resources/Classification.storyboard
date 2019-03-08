@@ -35,14 +35,14 @@
                                 <rect key="frame" x="67.5" y="475" width="34" height="30"/>
                                 <state key="normal" title="Save"/>
                                 <connections>
-                                    <action selector="saveTapped" destination="zDT-De-ciR" eventType="touchUpInside" id="S7l-W2-MqC"/>
+                                    <action selector="didTapSave" destination="zDT-De-ciR" eventType="touchUpInside" id="Yy6-bn-5Wc"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QE2-jb-m15">
                                 <rect key="frame" x="259.5" y="475" width="48" height="30"/>
                                 <state key="normal" title="Cancel"/>
                                 <connections>
-                                    <action selector="cancelTapped" destination="zDT-De-ciR" eventType="touchUpInside" id="1fG-nM-z4F"/>
+                                    <action selector="didTapCancel" destination="zDT-De-ciR" eventType="touchUpInside" id="fbu-Ix-JhZ"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter the physical width in m..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wut-b1-IUG">

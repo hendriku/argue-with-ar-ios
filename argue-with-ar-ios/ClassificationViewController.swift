@@ -23,11 +23,11 @@ class ClassificationViewController: UIViewController {
         widthTextField.resignFirstResponder()
     }
     
-    @IBAction func cancelTapped() {
+    @IBAction func didTapCancel() {
         dismiss(animated: true)
     }
     
-    @IBAction func saveTapped() {
+    @IBAction func didTapSave() {
         if let physicalWidth = Float(widthTextField.text?.replacingOccurrences(of: ",", with: ".") ?? "") {
             mainViewController!.detectionImages.append(PersistentARReferenceImage(image: image!, physicalWidth: CGFloat(physicalWidth), name: nameTextField.text!))
             mainViewController!.saveARResources()
