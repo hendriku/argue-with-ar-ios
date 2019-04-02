@@ -82,7 +82,7 @@ extension MainViewController: ARSCNViewDelegate, ARSessionDelegate {
         case .normal:
             if let timestamp = timestamp {
                 let deltaTime = (DispatchTime.now().uptimeNanoseconds - timestamp.uptimeNanoseconds) / 1000000
-                print("Relo calization from error took \(deltaTime)")
+                print("Relocalization from error took \(deltaTime)")
             }
         default:
             break;
@@ -137,7 +137,7 @@ extension MainViewController {
     
     func saveARResources() {
         do {
-            let data = try NSKeyedArchiver.archivedData(withRootObject: detectionImages, requiringSecureCoding: false)
+            let data = try NSKeyedArchiver.archivedData(withRootObject: detectionImages ?? [], requiringSecureCoding: false)
             try data.write(to: fullPath)
         } catch {
             print("Couldn't write set of ar resources")
