@@ -154,7 +154,8 @@ extension MainViewController {
     
     func saveARResources() {
         do {
-            let data = try NSKeyedArchiver.archivedData(withRootObject: detectionImages, requiringSecureCoding: false)
+            let data = try NSKeyedArchiver.archivedData(withRootObject: detectionImages ?? []
+                , requiringSecureCoding: false)
             try data.write(to: fullPath)
         } catch {
             print("Couldn't write set of ar resources")
